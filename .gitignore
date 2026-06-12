@@ -1,0 +1,18 @@
+# Dependency directories
+node_modules/
+frontend/node_modules/
+
+# Build outputs
+dist/
+frontend/dist/
+tee-contract/target/
+
+# Local env files
+.env
+frontend/.env
+
+# Temporary files
+*.log
+.DS_Store
+.idea/
+.vscode/

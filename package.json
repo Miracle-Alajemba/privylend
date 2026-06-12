@@ -1,0 +1,22 @@
+{
+  "name": "privylend-root",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "setup-tenant": "ts-node scripts/setup-tenant.ts",
+    "register-contract": "ts-node scripts/register-contract.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@terminal3/t3n-sdk": "^3.5.2",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1"
+  }
+}
