@@ -6,6 +6,7 @@
     "frontend"
   ],
   "scripts": {
+    "dev": "npm run dev --workspace=frontend",
     "setup-tenant": "ts-node scripts/setup-tenant.ts",
     "register-contract": "ts-node scripts/register-contract.ts"
   },
