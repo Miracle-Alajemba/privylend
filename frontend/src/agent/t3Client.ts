@@ -1,5 +1,11 @@
-import { T3nClient, setEnvironment, loadWasmComponent,
-  eth_get_address, metamask_sign, createEthAuthInput } from "@terminal3/t3n-sdk";
+import {
+  T3nClient,
+  setEnvironment,
+  loadWasmComponent,
+  eth_get_address,
+  metamask_sign,
+  createEthAuthInput,
+} from "@terminal3/t3n-sdk";
 
 setEnvironment("testnet");
 
@@ -17,11 +23,25 @@ export async function createT3Client() {
   }
 
   const wasmComponent = await loadWasmComponent();
+
   const client = new T3nClient({
     wasmComponent,
-    handlers: { EthSign: metamask_sign(address, undefined, API_KEY) },
+    handlers: {
+      EthSign: metamask_sign(address, undefined, API_KEY),
+    },
   });
+
+  // Handshake must complete before authenticate
   await client.handshake();
+
+  // Small delay to let the session establish
+  await new Promise(resolve => setTimeout(resolve, 500));
+
   const did = await client.authenticate(createEthAuthInput(address));
-  return { client, tenantDid: did.value };
+
+  if (!did || !did.value) {
+    throw new Error("Authentication failed: no DID returned from T3N");
+  }
+
+  return { client, tenantDid: did.value, address };
 }
