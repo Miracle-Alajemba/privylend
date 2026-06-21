@@ -37,33 +37,33 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 selection:bg-celo-gold/30 selection:text-celo-gold">
+    <div className="flex flex-col min-h-screen bg-[#08090B] text-slate-100 selection:bg-celo-gold/30 selection:text-celo-gold overflow-hidden">
       
       {/* Background Ambient Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[60%] rounded-full bg-yellow-500/5 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[60%] rounded-full bg-emerald-500/5 blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[50%] rounded-full bg-yellow-500/[0.02] blur-[150px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[50%] rounded-full bg-emerald-500/[0.02] blur-[150px]" />
       </div>
 
       {/* Navigation Header */}
-      <header className="relative w-full border-b border-slate-900 bg-slate-950/60 backdrop-blur-md px-6 py-4 flex items-center justify-between z-10">
+      <header className="relative w-full border-b border-slate-800 bg-[#08090B]/80 backdrop-blur-xl px-6 py-4 flex items-center justify-between z-25">
         <div className="flex items-center space-x-2.5">
-          <div className="p-2 bg-gradient-to-r from-celo-gold to-yellow-500 rounded-lg text-slate-950">
-            <Shield className="w-5 h-5" />
+          <div className="p-2 bg-gradient-to-r from-celo-gold to-yellow-500 rounded-xl text-slate-950 shadow-md">
+            <Shield className="w-4 h-4 text-slate-950" />
           </div>
-          <span className="font-extrabold text-lg tracking-wider bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+          <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-slate-100 to-slate-350 bg-clip-text text-transparent">
             PrivyLend
           </span>
         </div>
 
-        <div className="flex items-center space-x-1 text-slate-500 text-xs bg-slate-900/40 border border-slate-800/60 rounded-full px-3 py-1.5">
-          <Lock className="w-3.5 h-3.5 text-celo-green" />
-          <span>TEE Enclave Active</span>
+        <div className="flex items-center space-x-1.5 text-slate-400 text-xs bg-[#0F1115]/90 border border-slate-800 rounded-full px-3 py-1.5 shadow-sm">
+          <Lock className="w-3 h-3 text-celo-green" />
+          <span className="font-bold uppercase tracking-wider text-[9px] text-slate-400">Enclave Active</span>
         </div>
       </header>
 
       {/* Main Body */}
-      <main className="relative flex-grow flex items-center justify-center px-4 py-8 z-10">
+      <main className="relative flex-grow flex items-center justify-center px-4 py-6 z-10 overflow-y-auto">
         {currentPage === "landing" && (
           <LandingPage
             address={address}
@@ -92,9 +92,10 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="relative w-full border-t border-slate-900 bg-slate-950/40 px-6 py-4 text-center text-slate-600 text-[10px] tracking-widest uppercase z-10">
+      <footer className="relative w-full border-t border-slate-800 bg-[#08090B]/40 px-6 py-4 text-center text-slate-650 text-[9px] font-bold tracking-widest uppercase z-10">
         © 2026 PrivyLend • Secured by Terminal 3
       </footer>
     </div>
+
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { WalletConnect } from "../components/WalletConnect";
-import { ShieldCheck, Cpu, Coins, ArrowRight } from "lucide-react";
+import { ShieldCheck, Cpu, Coins, ArrowRight, ShieldAlert, BadgeCheck } from "lucide-react";
 
 interface LandingPageProps {
   address: string | null;
@@ -21,52 +21,66 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 }) => {
   const steps = [
     {
-      title: "1. Connect Wallet",
-      desc: "Connect your MetaMask wallet to Celo Alfajores testnet to authenticate your session.",
+      title: "1. Link Wallet",
+      desc: "Connect your MetaMask to Celo Alfajores Testnet to authenticate your secure session.",
       icon: Coins,
-      color: "text-amber-400 bg-amber-500/5 border-amber-800/30",
+      color: "border-slate-800/80 hover:border-amber-500/40 text-amber-400 hover:shadow-[0_0_20px_rgba(251,204,92,0.08)] bg-slate-900/10",
+      badge: "Step 1"
     },
     {
-      title: "2. Ingest Document",
-      desc: "Upload bank statements or payslips privately. PII details resolve only inside TEE enclaves.",
+      title: "2. Private Document Ingestion",
+      desc: "Upload bank statements or payslips. Your sensitive data is processed only inside the secure enclave.",
       icon: ShieldCheck,
-      color: "text-emerald-400 bg-emerald-500/5 border-emerald-800/30",
+      color: "border-slate-800/80 hover:border-emerald-500/40 text-emerald-400 hover:shadow-[0_0_20px_rgba(53,208,127,0.08)] bg-slate-900/10",
+      badge: "Step 2"
     },
     {
-      title: "3. TEE Credit Scoring",
-      desc: "The Rust WASM contract calculates your rating and issues a Verifiable Credential on-chain.",
+      title: "3. TEE Scoring & VC Issuance",
+      desc: "The Rust WASM contract runs scoring rules and issues a cryptographic Verifiable Credential on-chain.",
       icon: Cpu,
-      color: "text-blue-400 bg-blue-500/5 border-blue-800/30",
+      color: "border-slate-800/80 hover:border-blue-500/40 text-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.08)] bg-slate-900/10",
+      badge: "Step 3"
     },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch justify-center w-full max-w-5xl gap-8 animate-fade-in py-4 md:py-8 px-2 md:px-6">
+    <div className="flex flex-col lg:flex-row items-stretch justify-center w-full max-w-5xl gap-8 lg:gap-12 animate-fade-in py-4 lg:py-8 px-4 md:px-8">
       
       {/* Left Column: Title, About, and Wallet Connect */}
       <div className="flex flex-col justify-between flex-1 space-y-6 max-w-md">
         
         {/* Title Header */}
         <div className="text-left space-y-3">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-celo-gold via-slate-100 to-celo-green bg-clip-text text-transparent">
+          <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/5 border border-emerald-500/20 text-emerald-400 shadow-md">
+            <BadgeCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Terminal 3 Agent ADK</span>
+          </span>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-celo-gold via-slate-100 to-celo-green bg-clip-text text-transparent pb-1">
             PrivyLend
           </h1>
-          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-            Privacy-First DeFi Credit Scoring Agent on Celo using Terminal 3 enclaves.
+          <p className="text-slate-400 text-sm md:text-base font-medium leading-relaxed">
+            Privacy-preserving DeFi credit rating agent secured by hardware enclaves.
           </p>
         </div>
 
         {/* About Section */}
-        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 text-left space-y-3 backdrop-blur-md">
+        <div className="bg-[#0F1115]/90 border border-slate-800/90 rounded-2xl p-6 text-left space-y-4 backdrop-blur-xl relative overflow-hidden group hover:border-slate-700/80 transition-all duration-300 shadow-xl">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-celo-gold/5 to-transparent rounded-bl-full pointer-events-none" />
+          
           <h4 className="text-xs font-bold uppercase tracking-wider text-celo-gold flex items-center space-x-1.5">
-            <span>The Problem & Solution</span>
+            <ShieldAlert className="w-4 h-4 text-celo-gold" />
+            <span>The Privacy Dilemma & Solution</span>
           </h4>
-          <p className="text-slate-300 text-xs leading-relaxed">
-            DeFi credit checks usually require handing over highly sensitive financial files (like bank statements or payslips), exposing private transactions to third-party databases. 
-          </p>
-          <p className="text-slate-400 text-[11px] leading-relaxed">
-            <strong>PrivyLend</strong> resolves this by processing files locally inside a hardware-secured TEE enclave, resolving sensitive metrics (such as income or balance) via private placeholders. Lenders get cryptographic proof of your credit tier, while your PII details remain 100% confidential.
-          </p>
+          
+          <div className="space-y-3 text-xs leading-relaxed">
+            <p className="text-slate-300">
+              Traditional credit verification forces borrowers to reveal raw financial files containing PII (Personally Identifiable Information), creating massive security and compliance risks.
+            </p>
+            <p className="text-slate-400">
+              <span className="text-slate-200 font-semibold">PrivyLend</span> solves this. The agent evaluates your records inside a secure hardware TEE enclave. Lenders get cryptographic proof of your credit score tier, while your raw statements remain 100% private.
+            </p>
+          </div>
         </div>
 
         {/* Wallet Connection / Next Trigger */}
@@ -82,9 +96,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {isConnected && (
             <button
               onClick={onNext}
-              className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold px-6 py-3.5 rounded-full shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+              className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 transform hover:-translate-y-0.5 transition-all duration-200 text-sm"
             >
-              <span>Proceed to Analysis</span>
+              <span>Proceed to Dashboard</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -93,19 +107,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* Right Column: Steps */}
       <div className="flex flex-col justify-center flex-1 space-y-4 max-w-md">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 text-left px-1">How it Works</h4>
+        <div className="flex items-center justify-between px-1">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">Security Pipeline</h4>
+          <span className="text-[10px] text-slate-600 font-semibold tracking-wider uppercase">Alpha Testnet</span>
+        </div>
+        
         <div className="flex flex-col gap-4 w-full">
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`flex items-start space-x-4 border rounded-xl p-4 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 ${step.color}`}
+              className={`flex items-start space-x-4 border rounded-xl p-5 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 shadow-lg ${step.color}`}
             >
-              <div className="p-2.5 rounded-lg border bg-slate-900/40 flex-shrink-0">
+              <div className="p-3 rounded-lg border border-slate-800 bg-[#0B0C0E]/80 text-slate-300 flex-shrink-0 flex items-center justify-center">
                 <step.icon className="w-5 h-5" />
               </div>
-              <div className="space-y-1">
-                <h3 className="text-slate-200 font-bold text-xs md:text-sm tracking-wide">{step.title}</h3>
-                <p className="text-slate-400 text-[11px] md:text-xs leading-relaxed">{step.desc}</p>
+              <div className="space-y-1.5 w-full">
+                <div className="flex items-center justify-between w-full">
+                  <h3 className="text-slate-200 font-bold text-xs md:text-sm tracking-wide">{step.title}</h3>
+                  <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full bg-slate-900/80 border border-slate-800/60 text-slate-500">
+                    {step.badge}
+                  </span>
+                </div>
+                <p className="text-slate-400 text-[11px] md:text-xs leading-relaxed font-medium">{step.desc}</p>
               </div>
             </div>
           ))}
@@ -115,3 +138,4 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     </div>
   );
 };
+
