@@ -70,8 +70,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         ))}
       </div>
 
+      {/* About Section */}
+      <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 text-left space-y-3 backdrop-blur-md w-full">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-celo-gold flex items-center space-x-1.5">
+          <span>The Problem & Solution</span>
+        </h4>
+        <p className="text-slate-300 text-xs leading-relaxed">
+          DeFi credit checks usually require handing over highly sensitive financial files (like bank statements or payslips), exposing private transactions to third-party databases. 
+        </p>
+        <p className="text-slate-400 text-[11px] leading-relaxed">
+          <strong>PrivyLend</strong> resolves this by processing files locally inside a hardware-secured TEE enclave, resolving sensitive metrics (such as income or balance) via private placeholders. Lenders get cryptographic proof of your credit tier, while your raw PII details remain 100% confidential.
+        </p>
+      </div>
+
       {/* Wallet Connection / Next Trigger */}
-      <div className="pt-4 space-y-4">
+      <div className="pt-2 space-y-4">
         <WalletConnect
           address={address}
           isConnected={isConnected}
