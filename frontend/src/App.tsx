@@ -8,7 +8,7 @@ import { Shield, Lock } from "lucide-react";
 
 export default function App() {
   const { address, isConnected, error: walletError, connectWallet, disconnectWallet } = useWallet();
-  const { loading, error: sessionError, result, steps, startAnalysis, resetSession } = useT3Session();
+  const { loading, error: sessionError, result, steps, startAnalysis, retryInSandbox, resetSession } = useT3Session();
   
   // App navigation state: "landing" | "dashboard" | "results"
   const [currentPage, setCurrentPage] = useState<"landing" | "dashboard" | "results">("landing");
@@ -24,6 +24,13 @@ export default function App() {
 
   const handleStartAnalysis = async (documentType: string) => {
     const success = await startAnalysis(documentType);
+    if (success) {
+      setCurrentPage("results");
+    }
+  };
+
+  const handleRetryInSandbox = async () => {
+    const success = await retryInSandbox();
     if (success) {
       setCurrentPage("results");
     }
@@ -74,6 +81,7 @@ export default function App() {
             error={sessionError}
             steps={steps}
             startAnalysis={handleStartAnalysis}
+            retryInSandbox={handleRetryInSandbox}
             onBack={handleBackToLanding}
           />
         )}

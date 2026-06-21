@@ -10,10 +10,11 @@ export interface ScoreResult {
 
 export async function runAgentFlow(
   documentType: string,
-  onStepChange: (step: number) => void
+  onStepChange: (step: number) => void,
+  forceMock: boolean = false
 ): Promise<ScoreResult> {
   const apiKey = import.meta.env.VITE_T3N_API_KEY || "";
-  const isMock = !apiKey || apiKey === "your_key_here";
+  const isMock = forceMock || !apiKey || apiKey === "your_key_here";
 
   if (isMock) {
     console.warn("VITE_T3N_API_KEY is not configured. Running in Mock/Simulated TEE Enclave mode.");

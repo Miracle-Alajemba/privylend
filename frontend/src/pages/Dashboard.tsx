@@ -8,6 +8,7 @@ interface DashboardProps {
   error: string | null;
   steps: ExecutionStep[];
   startAnalysis: (documentType: string) => void;
+  retryInSandbox: () => void;
   onBack: () => void;
 }
 
@@ -16,6 +17,7 @@ export const Dashboard: FC<DashboardProps> = ({
   error,
   steps,
   startAnalysis,
+  retryInSandbox,
   onBack,
 }) => {
   return (
@@ -98,15 +100,24 @@ export const Dashboard: FC<DashboardProps> = ({
           {error && (
             <div className="flex items-start space-x-2.5 bg-red-950/40 border border-red-800/40 rounded-xl p-4 text-red-300 text-xs">
               <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <div className="space-y-1">
+              <div className="space-y-1 w-full">
                 <strong className="font-bold">Pipeline Error:</strong>
                 <p className="leading-relaxed">{error}</p>
-                <button
-                  onClick={onBack}
-                  className="text-red-400 hover:text-red-300 underline font-semibold mt-2 block"
-                >
-                  Restart Analysis
-                </button>
+                <div className="flex items-center space-x-4 mt-3 pt-1">
+                  <button
+                    onClick={onBack}
+                    className="text-red-400 hover:text-red-300 underline font-semibold transition-colors"
+                  >
+                    Restart Analysis
+                  </button>
+                  <span className="text-slate-700">|</span>
+                  <button
+                    onClick={retryInSandbox}
+                    className="text-celo-gold hover:text-yellow-400 font-semibold flex items-center space-x-1 transition-colors"
+                  >
+                    <span>Switch to Sandbox Mode (Simulation) →</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}

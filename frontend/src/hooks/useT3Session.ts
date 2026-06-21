@@ -12,6 +12,7 @@ export function useT3Session() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const [lastDocumentType, setLastDocumentType] = useState<string>("bank_statement");
   const [steps, setSteps] = useState<ExecutionStep[]>([
     { name: "Open TEE session", status: "pending" },
     { name: "Ingest documents", status: "pending" },
@@ -31,10 +32,11 @@ export function useT3Session() {
     ]);
   };
 
-  const startAnalysis = async (documentType: string): Promise<boolean> => {
+  const startAnalysis = async (documentType: string, forceMock: boolean = false): Promise<boolean> => {
     setLoading(true);
     setError(null);
     setResult(null);
+    setLastDocumentType(documentType);
 
     // Reset steps
     setSteps([
@@ -57,7 +59,7 @@ export function useT3Session() {
             }
           })
         );
-      });
+      }, forceMock);
 
       // Mark all as success
       setSteps((prevSteps) => prevSteps.map((step) => ({ ...step, status: "success" })));
@@ -76,12 +78,17 @@ export function useT3Session() {
     }
   };
 
+  const retryInSandbox = async () => {
+    return startAnalysis(lastDocumentType, true);
+  };
+
   return {
     loading,
     error,
     result,
     steps,
     startAnalysis,
+    retryInSandbox,
     resetSession,
   };
 }
