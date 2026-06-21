@@ -45,7 +45,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
           className="group relative flex items-center justify-center space-x-2.5 bg-gradient-to-r from-celo-gold to-yellow-500 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-bold px-6 py-4 rounded-xl shadow-lg shadow-yellow-500/10 hover:shadow-yellow-500/20 transform hover:-translate-y-0.5 transition-all duration-300 w-full md:w-auto"
         >
           <Wallet className="w-4 h-4 text-slate-950 transition-transform group-hover:scale-110" />
-          <span className="text-sm font-extrabold tracking-wide">Connect MetaMask</span>
+          <span className="text-sm font-extrabold tracking-wide">Connect Wallet</span>
         </button>
       )}
 

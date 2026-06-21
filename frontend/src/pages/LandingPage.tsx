@@ -22,7 +22,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const steps = [
     {
       title: "1. Link Wallet",
-      desc: "Connect your MetaMask to Celo Alfajores Testnet to authenticate your secure session.",
+      desc: "Connect your wallet to Celo Alfajores Testnet to authenticate your secure session.",
       icon: Coins,
       color: "border-slate-800/80 hover:border-amber-500/40 text-amber-400 hover:shadow-[0_0_20px_rgba(251,204,92,0.08)] bg-slate-900/10",
       badge: "Step 1"
