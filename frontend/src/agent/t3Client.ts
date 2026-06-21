@@ -27,7 +27,20 @@ export async function createT3Client() {
   const client = new T3nClient({
     wasmComponent,
     handlers: {
-      EthSign: metamask_sign(address, undefined, API_KEY),
+      EthSign: async (msg: any) => {
+        const tempEth = (window as any).ethereum;
+        try {
+          if (tempEth) {
+            (window as any).ethereum = undefined;
+          }
+          const signFn = metamask_sign(address, undefined, API_KEY);
+          return await signFn(msg);
+        } finally {
+          if (tempEth) {
+            (window as any).ethereum = tempEth;
+          }
+        }
+      },
     },
   });
 
