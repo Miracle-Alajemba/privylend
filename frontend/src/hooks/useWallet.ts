@@ -25,6 +25,12 @@ export function useWallet() {
     setError(null);
     const ethereum = (window as any).ethereum;
     if (!ethereum) {
+      if (import.meta.env.DEV || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        console.log("MetaMask not detected in dev environment. Using mock bypass wallet.");
+        setAddress("0x70997970C51812dc3A010C7d01b50e0d17dc79C8");
+        setIsConnected(true);
+        return;
+      }
       setError("Please install MetaMask to proceed.");
       return;
     }

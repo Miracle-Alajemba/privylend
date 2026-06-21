@@ -37,6 +37,7 @@ async function main() {
   const tenant = new TenantClient({
     t3n: client,
     tenantDid,
+    baseUrl: "https://cn-api.sg.testnet.t3n.terminal3.io",
   });
 
   console.log("Claiming Tenant DID...");
