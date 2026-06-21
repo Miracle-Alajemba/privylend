@@ -51,7 +51,7 @@ export default function App() {
           <div className="p-2 bg-gradient-to-r from-celo-gold to-yellow-500 rounded-xl text-slate-950 shadow-md">
             <Shield className="w-4 h-4 text-slate-950" />
           </div>
-          <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-slate-100 to-slate-350 bg-clip-text text-transparent">
+          <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
             PrivyLend
           </span>
         </div>
