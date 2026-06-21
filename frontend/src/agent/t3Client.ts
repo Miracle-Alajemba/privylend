@@ -27,28 +27,12 @@ export async function createT3Client() {
   const client = new T3nClient({
     wasmComponent,
     handlers: {
-      EthSign: async (msg: any) => {
-        const tempEth = (window as any).ethereum;
-        try {
-          if (tempEth) {
-            (window as any).ethereum = undefined;
-          }
-          const signFn = metamask_sign(address, undefined, API_KEY);
-          return await signFn(msg);
-        } finally {
-          if (tempEth) {
-            (window as any).ethereum = tempEth;
-          }
-        }
-      },
+      EthSign: metamask_sign(address, undefined, API_KEY),
     },
   });
 
   // Handshake must complete before authenticate
   await client.handshake();
-
-  // Small delay to let the session establish
-  await new Promise(resolve => setTimeout(resolve, 500));
 
   const did = await client.authenticate(createEthAuthInput(address));
 

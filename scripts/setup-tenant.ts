@@ -52,7 +52,7 @@ async function main() {
   try {
     await tenant.maps.create({
       tail: "secrets",
-      visibility: "secret",
+      visibility: "private",
       writers: "all",
       readers: "all",
     });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { runAgentFlow, type ScoreResult } from "../agent/agentFlow";
 
 export type StepState = "pending" | "active" | "success" | "error";
@@ -13,6 +13,7 @@ export function useT3Session() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [lastDocumentType, setLastDocumentType] = useState<string>("bank_statement");
+  const isExecutingRef = useRef(false);
   const [steps, setSteps] = useState<ExecutionStep[]>([
     { name: "Open TEE session", status: "pending" },
     { name: "Ingest documents", status: "pending" },
@@ -33,6 +34,11 @@ export function useT3Session() {
   };
 
   const startAnalysis = async (documentType: string, forceMock: boolean = false): Promise<boolean> => {
+    if (isExecutingRef.current) {
+      console.warn("Analysis is already in progress. Ignoring duplicate start request.");
+      return false;
+    }
+    isExecutingRef.current = true;
     setLoading(true);
     setError(null);
     setResult(null);
@@ -75,6 +81,7 @@ export function useT3Session() {
       return false;
     } finally {
       setLoading(false);
+      isExecutingRef.current = false;
     }
   };
 
