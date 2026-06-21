@@ -31,7 +31,7 @@ export function useT3Session() {
     ]);
   };
 
-  const startAnalysis = async (documentType: string) => {
+  const startAnalysis = async (documentType: string): Promise<boolean> => {
     setLoading(true);
     setError(null);
     setResult(null);
@@ -62,6 +62,7 @@ export function useT3Session() {
       // Mark all as success
       setSteps((prevSteps) => prevSteps.map((step) => ({ ...step, status: "success" })));
       setResult(scoreResult);
+      return true;
     } catch (err: any) {
       setError(err.message || "An error occurred during T3 TEE analysis.");
       setSteps((prevSteps) =>
@@ -69,6 +70,7 @@ export function useT3Session() {
           step.status === "active" ? { ...step, status: "error" } : step
         )
       );
+      return false;
     } finally {
       setLoading(false);
     }

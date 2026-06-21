@@ -23,8 +23,10 @@ export default function App() {
   };
 
   const handleStartAnalysis = async (documentType: string) => {
-    await startAnalysis(documentType);
-    setCurrentPage("results");
+    const success = await startAnalysis(documentType);
+    if (success) {
+      setCurrentPage("results");
+    }
   };
 
   return (
